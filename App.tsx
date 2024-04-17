@@ -6,113 +6,90 @@
  */
 
 import React from 'react';
-import type {PropsWithChildren} from 'react';
+import {useState} from 'react';
 import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
   Text,
-  useColorScheme,
   View,
+  StyleSheet,
+  Dimensions,
+  ImageBackground,
+  Switch,
+  Image,
 } from 'react-native';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
-
-function Section({children, title}: SectionProps): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-}
-
-function App(): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
-  return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
-  );
-}
-
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
+  TextStyles: {
+    color: 'white',
+    fontSize: 50,
   },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
+  ParagraphStyles: {
+    color: 'white',
+    fontSize: 20,
   },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
+  background: {
+    height: Dimensions.get('screen').height,
+    backgroundColor: '#1f2535',
+    padding: 8,
+    flexDirection: 'row',
   },
-  highlight: {
-    fontWeight: '700',
+  images: {
+    width: 100,
+    height: 100,
+    borderRadius: 10,
   },
+  view1: {
+    flexDirection: 'row',
+    gap: 2,
+    marginHorizontal: 10,
+  },
+  view3: {
+    width: 200,
+    height: 100,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  switchStyles: {width: 10, height: 10},
+  // backgroundImage: {
+  //   flex: 1,
+  //   resizeMode: 'cover',
+  //   backgroundColor: 'rgba(0,0,0,0.00002)',
+  // },
 });
+function App(): React.JSX.Element {
+  const [isEnabled, setIsEnabled] = useState(false);
+  const toggleSwitch = () => setIsEnabled(previousState => !previousState);
+
+  return (
+    // <ImageBackground
+    //   source={require('./background.png')}
+    //   style={styles.backgroundImage}>
+    <View style={styles.background}>
+      <Image
+        source={{
+          uri: 'https://images.pexels.com/photos/346529/pexels-photo-346529.jpeg?auto=compress&cs=tinysrgb&w=600',
+        }}
+        style={styles.images}
+      />
+      <View style={styles.view1}>
+        <View>
+          <Text style={styles.TextStyles}>8:00</Text>
+          <Text style={styles.ParagraphStyles}>¡Despierta</Text>
+        </View>
+        <View style={styles.view3}>
+          <Switch
+            style={styles.switchStyles}
+            trackColor={{false: '#26d1a4', true: '#26d1a4'}}
+            thumbColor={isEnabled ? 'white' : 'white'}
+            ios_backgroundColor="#3e3e3e"
+            onValueChange={toggleSwitch}
+            value={isEnabled}
+          />
+        </View>
+      </View>
+    </View>
+    // </ImageBackground>
+  );
+}
 
 export default App;
