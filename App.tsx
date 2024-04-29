@@ -7,6 +7,7 @@
 
 import React from 'react';
 import {useState} from 'react';
+import {MyModal} from './components/MyModal';
 import {
   Text,
   View,
@@ -77,6 +78,7 @@ const styles = StyleSheet.create({
   // },
 });
 function App(): React.JSX.Element {
+  const [modalVisible, setModalVisible] = useState(false);
   const [isEnabled, setIsEnabled] = useState(true);
   const [days, setDays] = useState([
     {name: 'L', isActive: false},
@@ -105,12 +107,16 @@ function App(): React.JSX.Element {
     //   source={require('./background.png')}
     //   style={styles.backgroundImage}>
     <View style={styles.background}>
-      <Image
-        source={{
-          uri: 'https://images.pexels.com/photos/346529/pexels-photo-346529.jpeg?auto=compress&cs=tinysrgb&w=600',
-        }}
-        style={styles.images}
-      />
+      <TouchableOpacity onPress={() => setModalVisible(true)}>
+        <Image
+          source={{
+            uri: 'https://images.pexels.com/photos/346529/pexels-photo-346529.jpeg?auto=compress&cs=tinysrgb&w=600',
+          }}
+          style={styles.images}
+        />
+      </TouchableOpacity>
+      <MyModal modalVisible={modalVisible} setModalVisible={setModalVisible} />
+
       <View style={styles.view1}>
         <View style={styles.viewDay}>
           <Text style={styles.TextStyles}>8:00</Text>
