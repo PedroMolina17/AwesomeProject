@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#1f2535',
     padding: 8,
     paddingVertical: 14,
-    flexDirection: 'row',
+    position: 'relative',
   },
   images: {
     width: 100,
@@ -56,6 +56,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  alarmView: {
+    flexDirection: 'row',
+  },
   viewDay: {
     gap: 6,
     marginHorizontal: 4,
@@ -70,6 +73,15 @@ const styles = StyleSheet.create({
     color: '#26d1a4',
     fontWeight: 'bold',
   },
+
+  viewMenu: {
+    width: 100,
+    height: 100,
+    color: 'white',
+    backgroundColor: 'white',
+    position: 'absolute',
+    bottom: 0,
+  },
   switchStyles: {width: 10, height: 10},
   // backgroundImage: {
   //   flex: 1,
@@ -77,6 +89,9 @@ const styles = StyleSheet.create({
   //   backgroundColor: 'rgba(0,0,0,0.00002)',
   // },
 });
+
+import AntDesign from 'react-native-vector-icons/AntDesign';
+
 function App(): React.JSX.Element {
   const [modalVisible, setModalVisible] = useState(false);
   const [isEnabled, setIsEnabled] = useState(true);
@@ -103,50 +118,53 @@ function App(): React.JSX.Element {
   };
 
   return (
-    // <ImageBackground
-    //   source={require('./background.png')}
-    //   style={styles.backgroundImage}>
     <View style={styles.background}>
-      <TouchableOpacity onPress={() => setModalVisible(true)}>
-        <Image
-          source={{
-            uri: 'https://images.pexels.com/photos/346529/pexels-photo-346529.jpeg?auto=compress&cs=tinysrgb&w=600',
-          }}
-          style={styles.images}
+      <View style={styles.alarmView}>
+        <TouchableOpacity onPress={() => setModalVisible(true)}>
+          <Image
+            source={{
+              uri: 'https://images.pexels.com/photos/346529/pexels-photo-346529.jpeg?auto=compress&cs=tinysrgb&w=600',
+            }}
+            style={styles.images}
+          />
+        </TouchableOpacity>
+        <MyModal
+          modalVisible={modalVisible}
+          setModalVisible={setModalVisible}
         />
-      </TouchableOpacity>
-      <MyModal modalVisible={modalVisible} setModalVisible={setModalVisible} />
-
-      <View style={styles.view1}>
-        <View style={styles.viewDay}>
-          <Text style={styles.TextStyles}>8:00</Text>
-          <Text style={styles.ParagraphStyles}>¡Despierta¡</Text>
-          <View style={styles.view2}>
-            {days.map((day, index) => (
-              <TouchableOpacity key={index} onPress={onToogleDays(index)}>
-                <Text
-                  style={
-                    day.isActive ? styles.dayTextSelected : styles.dayText
-                  }>
-                  {day.name}
-                </Text>
-              </TouchableOpacity>
-            ))}
+        <View style={styles.view1}>
+          <View style={styles.viewDay}>
+            <Text style={styles.TextStyles}>8:00</Text>
+            <Text style={styles.ParagraphStyles}>¡Despierta¡</Text>
+            <View style={styles.view2}>
+              {days.map((day, index) => (
+                <TouchableOpacity key={index} onPress={onToogleDays(index)}>
+                  <Text
+                    style={
+                      day.isActive ? styles.dayTextSelected : styles.dayText
+                    }>
+                    {day.name}
+                  </Text>
+                </TouchableOpacity>
+              ))}
+            </View>
+          </View>
+          <View style={styles.view3}>
+            <Switch
+              style={styles.switchStyles}
+              trackColor={{false: '#26d1a4', true: '#26d1a4'}}
+              thumbColor={isEnabled ? 'white' : 'white'}
+              ios_backgroundColor="#3e3e3e"
+              onValueChange={toggleSwitch}
+              value={isEnabled}
+            />
           </View>
         </View>
-        <View style={styles.view3}>
-          <Switch
-            style={styles.switchStyles}
-            trackColor={{false: '#26d1a4', true: '#26d1a4'}}
-            thumbColor={isEnabled ? 'white' : 'white'}
-            ios_backgroundColor="#3e3e3e"
-            onValueChange={toggleSwitch}
-            value={isEnabled}
-          />
-        </View>
+      </View>
+      <View style={styles.viewMenu}>
+        <AntDesign name="pluscircle" size={50} color={'black'} />
       </View>
     </View>
-    // </ImageBackground>
   );
 }
 
