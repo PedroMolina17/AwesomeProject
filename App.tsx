@@ -21,8 +21,7 @@ import {
 
 import styles from './styles';
 
-import AntDesign from 'react-native-vector-icons/AntDesign';
-
+import Icon from 'react-native-vector-icons/FontAwesome';
 function App(): React.JSX.Element {
   const [modalVisible, setModalVisible] = useState(false);
   const [isEnabled, setIsEnabled] = useState(true);
@@ -93,7 +92,7 @@ function App(): React.JSX.Element {
       </View>
       <View style={styles.viewMenu}>
         <TouchableOpacity onPress={() => setModalVisible(true)}>
-          <AntDesign name="pluscircle" size={50} color={'#26d1a4'} />
+          <Icon name="battery" size={50} color={'#26d1a4'} />
         </TouchableOpacity>
       </View>
     </View>

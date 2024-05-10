@@ -87,13 +87,14 @@ const styles = StyleSheet.create({
 
   btnDelete: {
     backgroundColor: '#202835',
+    width: Dimensions.get('window').width * 0.2,
   },
 
   btnSave: {
     backgroundColor: '#26d1a4',
     borderRadius: 50,
     paddingVertical: 12,
-    width: 200,
+    width: Dimensions.get('window').width * 0.6,
     shadowColor: '#26d1a4',
     shadowOffset: {width: 0, height: 0},
     shadowOpacity: 1,
